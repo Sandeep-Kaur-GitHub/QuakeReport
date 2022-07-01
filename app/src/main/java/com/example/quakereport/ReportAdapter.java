@@ -37,7 +37,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
         GradientDrawable magnitudeCircle = (GradientDrawable) mag_textView.getBackground();
         int magnitudeColor = getMagnitudeColor((int) currentReport.getMagnitude());
         mag_textView.setText(dMag);
-        magnitudeCircle.setColor(magnitudeColor);
+
         TextView firstloc_textView = (TextView) listItemView.findViewById(R.id.textview_locationFirst);
         TextView secondloc_textView = (TextView) listItemView.findViewById(R.id.textview_locationSecond);
         String div=currentReport.getLocation();

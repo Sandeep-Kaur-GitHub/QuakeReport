@@ -7,7 +7,7 @@
      android:id="@+id/textview_magnitude"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:background="@drawable/magnitude_circle"
+
      android:gravity="center"
      android:text="hello"
      android:layout_marginRight="55dp"
