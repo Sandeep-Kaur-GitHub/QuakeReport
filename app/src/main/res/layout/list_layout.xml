@@ -7,21 +7,48 @@
      android:id="@+id/textview_magnitude"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
+     android:background="@drawable/magnitude_circle"
+     android:gravity="center"
      android:text="hello"
-     android:padding="10dp"
-     android:textSize="20sp"/>
+     android:layout_marginRight="55dp"
+     android:layout_marginLeft="10dp"
+     android:textSize="15sp"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textview_locationFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hello"
+            android:padding="10dp"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/textview_locationSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hello"
+            android:padding="10dp"
+            android:textSize="15sp"/>
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
-        android:id="@+id/textview_location"
+        android:id="@+id/textview_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hello"
         android:padding="10dp"
-        android:textSize="20sp"/>
+        android:textSize="15sp"/>
     <TextView
         android:id="@+id/textview_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hello"
         android:padding="10dp"
-        android:textSize="20sp"/>
-</LinearLayout>
+        android:textSize="15sp"/>
+</LinearLayout></LinearLayout>
