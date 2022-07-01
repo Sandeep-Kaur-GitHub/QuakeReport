@@ -30,13 +30,11 @@ public class EarthquakeActivity extends AppCompatActivity {
     public static final String LOG_TAG = EarthquakeActivity.class.getSimpleName();
    private static final String USGS ="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
-
+    ArrayList<Report> array_list= new ArrayList<Report>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
-        ArrayList<Report> array_list= new ArrayList<Report>();
-
 
         ReportAdapter report_adapter = new ReportAdapter(this, array_list);
         ListView list_view = findViewById(R.id.list_view);
@@ -85,19 +83,20 @@ public class EarthquakeActivity extends AppCompatActivity {
         }
     }
     private Report extractFeatureFromJson(String reportJson){
+
         try {
             JSONObject root = new JSONObject(reportJson);
             JSONArray features= root.getJSONArray("features");
-           if(features.length()>0)
+           for (int i=0;i<features.length();i++)
             {
-                JSONObject first_object=features.getJSONObject(0);
+                JSONObject first_object=features.getJSONObject(i);
                 JSONObject param= first_object.getJSONObject("properties");
                 Double magnitude =param.getDouble("mag");
                 String place= param.getString("place");
                 Long time=param.getLong("time");
                 String loc= param.getString("url");
-                Log.i("aaaa","aaa"+place);
-                return new Report(magnitude,place,time,loc);
+                Report report =new Report(magnitude,place,time,loc);
+
             }
 
         } catch (JSONException e) {
