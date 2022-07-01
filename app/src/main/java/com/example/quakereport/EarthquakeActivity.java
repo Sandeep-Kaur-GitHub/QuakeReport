@@ -29,19 +29,16 @@ import java.util.ArrayList;
 public class EarthquakeActivity extends AppCompatActivity {
     public static final String LOG_TAG = EarthquakeActivity.class.getSimpleName();
    private static final String USGS ="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
-
+ private ReportAdapter report_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        ReportAdapter report_adapter = new ReportAdapter(this,  new ArrayList<Report>());
+     report_adapter = new ReportAdapter(this,  new ArrayList<Report>());
         ListView list_view = findViewById(R.id.list_view);
         list_view.setAdapter(report_adapter);
-
-
-
 
        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,7 +75,10 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Report> report) {
-        super.onPostExecute(report);
+            report_adapter.clear();
+            if (report != null && !report.isEmpty()) {
+                report_adapter.addAll(report);
+            }
 
         }
     }
@@ -133,7 +133,7 @@ public class EarthquakeActivity extends AppCompatActivity {
 
         if(urlConnection.getResponseCode()==200)
         {
-            Log.i("kiddaa","hogeya");
+
         }
 
 
@@ -162,7 +162,6 @@ public class EarthquakeActivity extends AppCompatActivity {
             }
         }
         String h=output.toString();
-        Log.i("hawaaa","hanji"+h);
         return output.toString();
     }
 }
