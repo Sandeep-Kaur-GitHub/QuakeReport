@@ -30,13 +30,13 @@ public class EarthquakeActivity extends AppCompatActivity {
     public static final String LOG_TAG = EarthquakeActivity.class.getSimpleName();
    private static final String USGS ="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
 
-    ArrayList<Report> array_list= new ArrayList<Report>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
-        ReportAdapter report_adapter = new ReportAdapter(this, array_list);
+        ReportAdapter report_adapter = new ReportAdapter(this,  new ArrayList<Report>());
         ListView list_view = findViewById(R.id.list_view);
         list_view.setAdapter(report_adapter);
 
@@ -61,10 +61,10 @@ public class EarthquakeActivity extends AppCompatActivity {
         earth.execute();
 
     }
-    private class EarthquakeAsyncTask extends AsyncTask<URL,Void,Report>{
+    private class EarthquakeAsyncTask extends AsyncTask<URL,Void,ArrayList<Report>>{
 
         @Override
-        protected Report doInBackground(URL... urls) {
+        protected ArrayList<Report> doInBackground(URL... urls) {
             URL url = createUrl(USGS);
             String jsonResponse = "";
             try {
@@ -72,18 +72,18 @@ public class EarthquakeActivity extends AppCompatActivity {
             } catch (IOException e) {
 
             }
-            Report report= extractFeatureFromJson(jsonResponse);
+            ArrayList<Report> report= extractFeatureFromJson(jsonResponse);
             return report;
         }
 
         @Override
-        protected void onPostExecute(Report report) {
+        protected void onPostExecute(ArrayList<Report> report) {
         super.onPostExecute(report);
 
         }
     }
-    private Report extractFeatureFromJson(String reportJson){
-
+    private ArrayList<Report> extractFeatureFromJson(String reportJson){
+        ArrayList<Report> array_list= new ArrayList<Report>();
         try {
             JSONObject root = new JSONObject(reportJson);
             JSONArray features= root.getJSONArray("features");
@@ -96,14 +96,14 @@ public class EarthquakeActivity extends AppCompatActivity {
                 Long time=param.getLong("time");
                 String loc= param.getString("url");
                 Report report =new Report(magnitude,place,time,loc);
-
+                array_list.add(report);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return array_list;
     }
     private URL createUrl(String stringUrl) {
         URL url = null;
